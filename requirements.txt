@@ -1,0 +1,16 @@
+django
+psycopg2-binary
+Pillow
+Jinja2
+django-admin-honeypot
+docutils
+django-crispy-forms
+django-autoslug
+django-import-export
+django-axes
+django-ckeditor
+reversion
+django-reversion
+django-cleanup
+python-decouple
+jinja2-django-tags

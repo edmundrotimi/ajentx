@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+{% include 'partials/variable_decleration.html' %}
+
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +14,7 @@
 
 <!-- Fav Icon -->
 {% block favicon %}
-    <link rel="icon" href="{{ staic (assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ static ('assets/images/favicon.ico') }}" type="image/x-icon">
 {% endblock favicon %}
 
 <!-- Google Fonts -->
@@ -23,18 +25,18 @@
 
 <!-- Stylesheets -->
 {% block styles %}
-    <link href="{{ staic (assets/css/font-awesome-all.css) }}" rel="stylesheet">
-    <link href="{{ staic (assets/css/flaticon.css) }}" rel="stylesheet">
-    <link href="{{ staic (assets/css/owl.css) }}" rel="stylesheet">
-    <link href="{{ staic (assets/css/bootstrap.css) }}" rel="stylesheet">
-    <link href="{{ staic (assets/css/jquery.fancybox.min.css) }}" rel="stylesheet">
-    <link href="{{ staic (assets/css/animate.css) }}" rel="stylesheet">
-    <link href="{{ staic (assets/css/jquery-ui.css) }}" rel="stylesheet">
-    <link href="{{ staic (assets/css/nice-select.css) }}" rel="stylesheet">
-    <link href="{{ staic (assets/css/color/theme-color.css) }}" id="jssDefault" rel="stylesheet">
-    <link href="{{ staic (assets/css/switcher-style.css) }}" rel="stylesheet">
-    <link href="{{ staic (assets/css/style.css) }}" rel="stylesheet">
-    <link href="{{ staic (assets/css/responsive.css) }}" rel="stylesheet">
+    <link href="{{ static ('assets/css/font-awesome-all.css') }}" rel="stylesheet">
+    <link href="{{ static ('assets/css/flaticon.css') }}" rel="stylesheet">
+    <link href="{{ static ('assets/css/owl.css') }}" rel="stylesheet">
+    <link href="{{ static ('assets/css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ static ('assets/css/jquery.fancybox.min.css') }}" rel="stylesheet">
+    <link href="{{ static ('assets/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ static ('assets/css/jquery-ui.css') }}" rel="stylesheet">
+    <link href="{{ static ('assets/css/nice-select.css') }}" rel="stylesheet">
+    <link href="{{ static ('assets/css/color/theme-color.css') }}" id="jssDefault" rel="stylesheet">
+    <link href="{{ static ('assets/css/switcher-style.css') }}" rel="stylesheet">
+    <link href="{{ static ('assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ static ('assets/css/responsive.css') }}" rel="stylesheet">
 {% endblock styles %}
 
 </head>
@@ -116,7 +118,7 @@
                 <div class="outer-box">
                     <div class="main-box">
                         <div class="logo-box">
-                            <figure class="logo"><a href="index.html"><img src="{{ staic (assets/images/logo.png) }}" alt=""></a></figure>
+                            <figure class="logo"><a href="index.html"><img src="{{ static ('assets/images/logo.png') }}" alt=""></a></figure>
                         </div>
                         <div class="menu-area clearfix">
                             <!--Mobile Navigation Toggler-->
@@ -246,7 +248,7 @@
                     <div class="outer-box">
                         <div class="main-box">
                             <div class="logo-box">
-                                <figure class="logo"><a href="index.html"><img src="{{ staic (assets/images/logo.png) }}" alt=""></a></figure>
+                                <figure class="logo"><a href="index.html"><img src="{{ static ('assets/images/logo.png') }}" alt=""></a></figure>
                             </div>
                             <div class="menu-area clearfix">
                                 <nav class="main-menu clearfix">
@@ -270,7 +272,7 @@
                 <div class="close-btn"><i class="fas fa-times"></i></div>
                 
                 <nav class="menu-box">
-                    <div class="nav-logo"><a href="index.html"><img src="{{ staic (assets/images/logo-2.png) }}" alt="" title=""></a></div>
+                    <div class="nav-logo"><a href="index.html"><img src="{{ static ('assets/images/logo-2.png') }}" alt="" title=""></a></div>
                     <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
                     <div class="contact-info">
                         <h4>Contact Info</h4>
@@ -295,6 +297,12 @@
 
 
         {% block content %} {% endblock content %}
+
+        <!-- subscribe-section -->
+        {% block subscribe %}
+            {% include 'partials/subscription.html' %}
+        {% endblock subscribe %}
+        <!-- subscribe-section end -->
 
         {% block footer %}
             <!-- main-footer -->
@@ -337,12 +345,12 @@
                                     </div>
                                     <div class="post-inner">
                                         <div class="post">
-                                            <figure class="post-thumb"><a href="blog-details.html"><img src="{{ staic (assets/images/resource/footer-post-1.jpg" alt=""></a></figure>
+                                            <figure class="post-thumb"><a href="blog-details.html"><img src="{{ static ('assets/images/resource/footer-post-1.jpg') }}" alt=""></a></figure>
                                             <h5><a href="blog-details.html">The Added Value Social Worker</a></h5>
                                             <p>Mar 25, 2020</p>
                                         </div>
                                         <div class="post">
-                                            <figure class="post-thumb"><a href="blog-details.html"><img src="{{ staic (assets/images/resource/footer-post-2.jpg" alt=""></a></figure>
+                                            <figure class="post-thumb"><a href="blog-details.html"><img src="{{ static ('assets/images/resource/footer-post-2.jpg') }}" alt=""></a></figure>
                                             <h5><a href="blog-details.html">Ways to Increase Trust</a></h5>
                                             <p>Mar 24, 2020</p>
                                         </div>
@@ -369,7 +377,7 @@
                 <div class="footer-bottom">
                     <div class="auto-container">
                         <div class="inner-box clearfix">
-                            <figure class="footer-logo"><a href="index.html"><img src="{{ staic (assets/images/footer-logo.png) }}" alt=""></a></figure>
+                            <figure class="footer-logo"><a href="index.html"><img src="{{ static ('assets/images/footer-logo.png') }}" alt=""></a></figure>
                             <div class="copyright pull-left">
                                 <p><a href="index.html">Realshed</a> &copy; 2021 All Right Reserved</p>
                             </div>
@@ -395,23 +403,23 @@
 
     <!-- jequery plugins -->
     {% block scripts %}
-        <script src="{{ staic (assets/js/jquery.js) }}"></script>
-        <script src="{{ staic (assets/js/popper.min.js) }}"></script>
-        <script src="{{ staic (assets/js/bootstrap.min.js) }}"></script>
-        <script src="{{ staic (assets/js/owl.js) }}"></script>
-        <script src="{{ staic (assets/js/wow.js) }}"></script>
-        <script src="{{ staic (assets/js/validation.js) }}"></script>
-        <script src="{{ staic (assets/js/jquery.fancybox.js) }}"></script>
-        <script src="{{ staic (assets/js/appear.js) }}"></script>
-        <script src="{{ staic (assets/js/scrollbar.js) }}"></script>
-        <script src="{{ staic (assets/js/isotope.js) }}"></script>
-        <script src="{{ staic (assets/js/jquery.nice-select.min.js) }}"></script>
-        <script src="{{ staic (assets/js/jQuery.style.switcher.min.js) }}"></script>
-        <script src="{{ staic (assets/js/jquery-ui.js) }}"></script>
-        <script src="{{ staic (assets/js/nav-tool.js) }}"></script>
+        <script src="{{ static ('assets/js/jquery.js') }}"></script>
+        <script src="{{ static ('assets/js/popper.min.js') }}"></script>
+        <script src="{{ static ('assets/js/bootstrap.min.js') }}"></script>
+        <script src="{{ static ('assets/js/owl.js') }}"></script>
+        <script src="{{ static ('assets/js/wow.js') }}"></script>
+        <script src="{{ static ('assets/js/validation.js') }}"></script>
+        <script src="{{ static ('assets/js/jquery.fancybox.js') }}"></script>
+        <script src="{{ static ('assets/js/appear.js') }}"></script>
+        <script src="{{ static ('assets/js/scrollbar.js') }}"></script>
+        <script src="{{ static ('assets/js/isotope.js') }}"></script>
+        <script src="{{ static ('assets/js/jquery.nice-select.min.js') }}"></script>
+        <script src="{{ static ('assets/js/jQuery.style.switcher.min.js') }}"></script>
+        <script src="{{ static ('assets/js/jquery-ui.js') }}"></script>
+        <script src="{{ static ('assets/js/nav-tool.js') }}"></script>
 
         <!-- main-js -->
-        <script src="{{ staic (assets/js/script.js) }}"></script>
+        <script src="{{ static ('assets/js/script.js') }}"></script>
     {% endblock scripts %}
 
 </body><!-- End of .page_wrapper -->

@@ -57,6 +57,11 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     
     #apps
+    'accounts.apps.AccountsConfig',
+    'agents.apps.AgentsConfig',
+    'blog.apps.BlogConfig',
+    'profiles.apps.ProfilesConfig',
+    'contact.apps.ContactConfig',
 
      # third party apps by order
     'django_cleanup.apps.CleanupConfig',

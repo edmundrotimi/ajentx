@@ -9,14 +9,18 @@
                     <h2>Sign Up To Our Newsletter To Get The Latest News And Offers.</h2>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 form-column">
+            <script type="text/javascript" src="https://sgwidget.leaderapps.co/js/sendgrid-widget.js"></script>
+            <div id="sendgrid-subscription-widget" class="sendgrid-subscription-widget col-lg-6 col-md-6 col-sm-12 form-column">
                 <div class="form-inner">
-                    <form action="http://azim.commonsupport.com/Realshed/contact.html" method="post"
+                    <form id="sg-widget" data-token="43774bfc98ebf7798ed5f095eeeaa9af" onsubmit="return false;"
                         class="subscribe-form">
                         <div class="form-group">
-                            <input type="email" name="email" placeholder="Enter your email" required="">
-                            <button type="submit">Subscribe Now</button>
+                            <input id="email" type="email" name="email" placeholder="Enter your email" required="">
+                            <button id="sg-submit-btn" type="submit">Subscribe Now</button>
                         </div>
+                        <h6 class="h6 fw-bold" style="font-size:15px; margin-top:5px;">
+                            <p class="sg-response" id="sg-response" style="color:white;"></p>
+                        </h6>
                     </form>
                 </div>
             </div>

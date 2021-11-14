@@ -1,0 +1,354 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+    <!--Page Title-->
+    <section class="page-title-two bg-color-1 centred">
+        <div class="pattern-layer">
+            <div class="pattern-1" style="background-image: url(assets/images/shape/shape-9.png);"></div>
+            <div class="pattern-2" style="background-image: url(assets/images/shape/shape-10.png);"></div>
+        </div>
+        <div class="auto-container">
+            <div class="content-box clearfix">
+                <h1>Update Listing</h1>
+                <ul class="bread-crumb clearfix">
+                    <li><a href="/">Home</a></li>
+                    <li>Update Property Listing</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!--End Page Title-->
+
+
+
+<!-- myprofile-section -->
+<section class="myprofile-section sec-pad">
+    <div class="auto-container">
+        <div class="title">
+            <h3>Listing Details </h3>
+        </div>
+        <div class="tabs-box">
+            <ul class="tab-btns tab-buttons clearfix">
+                <li class="tab-btn active-btn" data-tab="#tab-1"><span>1</span>General Information</li>
+                <li class="tab-btn" data-tab="#tab-2"><span>2</span>More Details</li>
+                <li class="tab-btn" data-tab="#tab-3"><span>3</span>Location/Amenities</li>
+                <li class="tab-btn" data-tab="#tab-4"><span>4</span>Featured Images</li>
+                <li class="tab-btn" data-tab="#tab-5"><span>4</span>Media</li>
+            </ul>
+            <form method='post' enctype='multipart/form-data'>
+                {{ csrf_input }}
+                <div class="tabs-content">
+                    {% if form.errors %}
+                        <section class="subscribe-section bg-color-3">
+                            <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-2.png);"></div>
+                            <div class="auto-container">
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 text-column">
+                                        <div class="text">
+                                            <span>Form Error</span>
+                                            <h2>The following form field(s) has an error: 
+                                            {% for name in form.errors %}{{name|title}}
+                                                {% if loop.last %}.{% else %},{% endif %}
+                                            {% endfor %}</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>   
+                    {% endif %}                 
+                    <div class="tab active-tab" id="tab-1">
+                        <div class="general-information">
+                            <h4><i class="icon-42"></i>General Information:</h4>
+                            <div class="inner-box default-form">
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Property Name</label>
+                                            {{form.property_name}}
+                                            {% if form.property_name.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.property_name.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Property Status</label>
+                                            {{form.property_status}}
+                                            {% if form.property_status.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.property_status.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Property category</label>
+                                            {{form.property_category}}
+                                            {% if form.property_category.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.property_category.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Property Size</label>
+                                            {{form.property_size}}
+                                            {% if form.property_size.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.property_size.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Property Description</label>
+                                            {{form.property_description}}
+                                            {% if form.property_description.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.property_description.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="tab-btns tab-buttons clearfix">
+                                    <li class="tab-btn active-btn" data-tab="#tab-2"><span>&gt;</span>Next</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab" id="tab-2">
+                        <div class="gallery-box">
+                            <h4><i class="icon-16"></i>More Details:</h4>
+                            <div class="inner-box default-form">
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Number of Rooms</label>
+                                            {{form.rooms}}   
+                                            {% if form.rooms.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.room.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Number of Bedrooms</label>
+                                            {{form.bedrooms}} 
+                                            {% if form.bedrooms.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.bedrooms.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Number of Bathroom</label>
+                                            {{form.bathrooms}}   
+                                            {% if form.bathrooms.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.bathrooms.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Number of Garage</label>
+                                            {{form.garage}} 
+                                            {% if form.garage.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.garage.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Garage Size</label>
+                                            {{form.garage_size}}   
+                                            {% if form.garage_size.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.garage_size.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Year Built</label>
+                                            <div class="form-group">
+                                                {{form.year_built}} 
+                                            </div> 
+                                            {% if form.year_built.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.year_built.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Property Price</label>
+                                            {{form.property_price}}   
+                                            {% if form.property_price.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.property_price.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="tab-btns tab-buttons clearfix">
+                            <li class="tab-btn" data-tab="#tab-1" style="color: #2dbe6c;"><span>&lt;</span>Previous</li>
+                            <li class="tab-btn" data-tab="#tab-3" style="color: #2dbe6c;"><span>&gt;</span>Next</li>
+                        </ul>
+                    </div>
+                    <div class="tab" id="tab-3">
+                        <div class="property-details">
+                            <h4><i class="icon-19"></i>Location/Amenities:</h4>
+                            <div class="inner-box default-form">
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <label>Amenities</label>  
+                                        <select class="select" multiple name='amenities'>
+                                            <option value="Air Conditioning">Air Conditioning</option>
+                                            <option value="Cleaning Service">Cleaning Service</option>
+                                            <option value="Dishwasher">Dishwasher</option>
+                                            <option value="Hardwood Flows">Hardwood Flows</option>
+                                            <option value="Swimming Pool">Swimming Pool</option>
+                                            <option value="Outdoor Shower">Outdoor Shower</option>
+                                            <option value="Microwave">Microwave</option>
+                                            <option value="Pet Friendly">Pet Friendly</option>
+                                            <option value="Basketball Court">Basketball Court</option>
+                                            <option value="Refrigerator">Refrigerator</option>
+                                            <option value="Gym">Gym</option>
+                                            {% if form.amenities.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.amenities.errors}}</div>{% endif %}
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Address</label>
+                                            {{form.address}} 
+                                            {% if form.address.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.address.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Country</label>
+                                            {{form.country}}   
+                                            {% if form.country.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.country.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Sate</label>
+                                            {{form.state}} 
+                                            {% if form.state.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.state.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>City</label>
+                                            {{form.city}}   
+                                            {% if form.city.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.city.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Zip/Postal Code</label>
+                                            {{form.postal_code}}   
+                                            {% if form.postal_code.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.postal_code.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Neighborhood</label>
+                                            {{form.neighborhood}}   
+                                            {% if form.neighborhood.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.neighborhood.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Nearby Locations (seperate list with ',')</label>
+                                            {{form.nearby}} 
+                                            {% if form.nearby.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.nearby.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="tab-btns tab-buttons clearfix">
+                                <li class="tab-btn" data-tab="#tab-2" style="color: #2dbe6c;"><span>&lt;</span>Previous</li>
+                                <li class="tab-btn" data-tab="#tab-4" style="color: #2dbe6c;"><span>&lt;</span>Next</li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="tab" id="tab-4">
+                        <div class="property-details">
+                            <h4><i class="icon-19"></i>Featured Images:</h4>
+                            <h4 style="font-size:16px; color:#2dbe6c;">
+                                Featured images are images that will represent this listing</h4>
+                            <div class="inner-box default-form">
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Featured Image 1</label>
+                                            <input type='file' name="feature_image_1" class="theme-btn btn-one">
+                                            {% if form.feature_image_1.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.feature_image_1.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Featured Image 2</label>
+                                            <input type='file' name="feature_image_2" class="theme-btn btn-one">                                            
+                                            {% if form.feature_image_2.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.feature_image_2.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Featured Image 3</label>
+                                            <input type='file' name="feature_image_3" class="theme-btn btn-one">   
+                                            {% if form.feature_image_3.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.feature_image_3.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="tab-btns tab-buttons clearfix">
+                                <li class="tab-btn" data-tab="#tab-3" style="color: #2dbe6c;"><span>&lt;</span>Previous</li>
+                                <li class="tab-btn" data-tab="#tab-5" style="color: #2dbe6c;"><span>&lt;</span>Next</li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="tab" id="tab-5">
+                        <div class="property-details">
+                            <h4><i class="icon-19"></i>Media (Other Images):</h4>
+                            <div class="inner-box default-form">
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Gallery Image 1</label>
+                                            <input type='file' name="gallery_image_1" class="theme-btn btn-one">     
+                                            {% if form.gallery_image_1.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.gallery_image_1.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Add Description to Gallery Image 1</label>
+                                            {{form.gallery_image_1_details}} 
+                                            {% if form.gallery_image_1_details.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.gallery_image_1_details.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Gallery Image 2</label>
+                                            <input type='file' name="gallery_image_2" class="theme-btn btn-one"> 
+                                            {% if form.gallery_image_2.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.gallery_image_2.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Add Description to Gallery Image 2</label>
+                                            {{form.gallery_image_2_details}}   
+                                            {% if form.gallery_image_2_details.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.gallery_image_2_details.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Gallery Image 3</label>
+                                            <input type='file' name="gallery_image_3" class="theme-btn btn-one">   
+                                            {% if form.gallery_image_3.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.gallery_image_3.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Add Description to Gallery Image 3</label>
+                                            {{form.gallery_image_3_details}}   
+                                            {% if form.gallery_image_3_details.errors %}<div style="color:#f94c4c; opacity:.7;">{{form.gallery_image_3_details.errors}}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="tab-btns tab-buttons clearfix">
+                                <li class="tab-btn" data-tab="#tab-4" style="color: #2dbe6c;"><span>&lt;</span>Previous</li>
+                            </ul>
+
+                            <input type="submit" value ='Submit' class="theme-btn btn-one">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- myprofile-section end -->
+{% endblock content %}
+
+{# override block #}
+{% block subscribe %} {% endblock subscribe %}

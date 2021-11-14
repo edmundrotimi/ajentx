@@ -1,0 +1,297 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!--Page Title-->
+<section class="page-title centred" style="background-image: url({{ static('assets/images/background/page-title.jpg') }});">
+    <div class="auto-container">
+        <div class="content-box clearfix">
+            <h1>Our Agents</h1>
+            <ul class="bread-crumb clearfix">
+                <li><a href="/">Home</a></li>
+                <li>Agents View</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--End Page Title-->
+
+
+<!-- agents-page-section -->
+<section class="agents-page-section agents-grid">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                <div class="default-sidebar agent-sidebar">
+                    <div class="agents-search sidebar-widget">
+                        <div class="widget-title">
+                            <h5>Find Agent</h5>
+                        </div>
+                        <div class="search-inner">
+                            <form action="{{url('agent_search')}}" method="get">
+                                <div class="form-group">
+                                    <input type="text" name="name" placeholder="Enter Agent Name" required="">
+                                </div>
+                                <div class="form-group">
+                                    <div class="select-box">
+                                        <select class="wide" name='category'>
+                                            <option data-display="All Categories">All Categories</option>
+                                            <option value="Seller">Seller</option>
+                                            <option value="Buyer">Buyer</option>
+                                            <option value="Broker/Realtor">Broker/Realtor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="select-box">
+                                        <input type='text' class="select-box" name="city" placeholder="City Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="theme-btn btn-one">Search Agent</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="category-widget sidebar-widget">
+                        <div class="widget-title">
+                            <h5>Status Of Agent</h5>
+                        </div>
+                        <ul class="category-list clearfix">
+                            <li><a href="#">Sellers <span>({{agent_count_seller}})</span></a></li>
+                            <li><a href="#">Broker/Realtor <span>({{agent_count_realtor}})</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="featured-widget sidebar-widget">
+                        <div class="widget-title">
+                            <h5>Featured Properties</h5>
+                        </div>
+                        <div class="single-item-carousel owl-carousel owl-theme owl-nav-none dots-style-one">
+                            {% set listing_random = listings|random %}
+                            {% if listings|length < 2 %}
+                                {% set listing_random = listings %}
+                            {% endif %}
+                            {% for listing in listing_random[:3] %}
+                                <div class="feature-block-one">
+                                    <div class="inner-box">
+                                        <div class="image-box">
+                                            <figure class="image"><img src="{{listing.feature_image_1.url}}" alt="">
+                                            </figure>
+                                            <div class="batch"><i class="icon-11"></i></div>
+                                            <span class="category">Featured</span>
+                                        </div>
+                                        <div class="lower-content">
+                                            <div class="title-text">
+                                                <h4><a href="/listings/{{listing.slug}}/">{{listing.property_name|title}}</a></h4>
+                                            </div>
+                                            <div class="price-box clearfix">
+                                                <div class="price-info">
+                                                    <h6>Start From</h6>
+                                                    <h4>₦{{listing.property_price|intcomma}}</h4>
+                                                </div>
+                                            </div>
+                                            <p>{{listing.property_description[:55]}}...</p>
+                                            <div class="btn-box"><a href="/listings/{{listing.slug}}/"
+                                                    class="theme-btn btn-two">See Details</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                <div class="agents-content-side">
+                    <div class="item-shorting clearfix">
+                        <div class="left-column pull-left">
+                            <h5>Search Reasults: <span>Showing 
+                                {{page_obj.number}}-{{paginator.num_pages}} of {{agent|count}} 
+                                Listings</span></h5>
+                        </div>
+                        <div class="right-column pull-right clearfix">
+                            <div class="short-box clearfix">
+                                <div class="select-box">
+                                    <form action="/agents/list/view/" id="form-sort">
+                                        <select class="wide" name="sort" onchange="$('#form-sort').submit()">
+                                            <option data-display="Sort by: Newest" value="Newest"> Newest</option>
+                                            <option data-display="Sort by: Seller" value="Seller">Seller</option>
+                                            <option data-display="Sort by: Buyer" value="Buyer">Buyer</option>
+                                            <option data-display="Sort by: Broker" value="Broker/Realtor">Broker/Realtor</option>
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="short-menu clearfix">
+                                <button class="list-view"><i class="icon-35"></i></button>
+                                <button class="grid-view on"><i class="icon-36"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper grid">
+                        <div class="agents-list-content">
+                            {% for agent in agent if agent %}
+                                <div class="agents-block-one">
+                                    <div class="inner-box">
+                                        <figure class="image-box"><img src="{{ agent.picture.url }}" alt="">
+                                        </figure>
+                                        <div class="content-box">
+                                            <div class="upper clearfix">
+                                                <div class="title-inner pull-left">
+                                                    <h4><a href="#">{{agent.first_name|title}} {{agent.last_name|title}}</a></h4>
+                                                    {% if agent.company_name is not none %}<span class="designation">{{agent.company_name|capitalize}}</span>{% endif %}
+                                                    <span class="theme-btn btn-one" style="padding:1px 30px;">{{agent.status|title}}</span>
+                                                </div>
+                                                <ul class="social-list pull-right clearfix">
+                                                    <li><a href="{{agent.social_facebook}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                                    </li>
+                                                    <li><a href="{{agent.social_twitter}}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                                    <li><a href="{{agent.social_linkedin}}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="text">
+                                                <p>{{agent.bio|capitalize|truncate(53, true)}}</p>
+                                            </div>
+                                            <ul class="info clearfix">
+                                                <li><i class="fab fa fa-envelope"></i><a
+                                                        href="#">{{agent.user.email|truncate(5)}}</a></li>
+                                                <li><i class="fab fa fa-phone"></i><a href="#">{{agent.phone_number|truncate(6)}}</a></li>
+                                            </ul>
+                                            <div class="btn-box">
+                                                <a href="/agents/detail/{{agent.slug}}/" class="theme-btn btn-two">View Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="agents-block-one">
+                                    <div class="inner-box">
+                                        <figure class="image-box"><img src="{{ static('assets/images/resource/agency-4.jpg') }}" alt=""></figure>
+                                        <div class="content-box">
+                                            <div class="upper clearfix">
+                                                <div class="title-inner pull-left">
+                                                    <h4><a href="#">Property Company</a></h4>
+                                                    <span class="designation">Modern House Real Estate Agent</span>
+                                                </div>
+                                                <ul class="social-list pull-right clearfix">
+                                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="text">
+                                                <p>No Lisiting Found...</p>
+                                            </div>
+                                            <ul class="info clearfix">
+                                                <li><i class="fab fa fa-envelope"></i><a href="#">info@p...</a></li>
+                                                <li><i class="fab fa fa-phone"></i><a href="#">...</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="agents-grid-content grid-item">
+                            <div class="row clearfix">
+                                {% for agent in agent if agent %}
+                                    <div class="col-lg-6 col-md-6 col-sm-12 agents-block">
+                                        <div class="agents-block-two">
+                                            <div class="inner-box">
+                                                <figure class="image-box"><img src="{{ agent.picture.url }}"
+                                                        alt=""></figure>
+                                                <div class="content-box">
+                                                    <div class="title-inner">
+                                                        <h4><a href="#">{{agent.first_name|title}} {{agent.last_name|title}}</a></h4>
+                                                        <button class="theme-btn btn-one" style="padding:1px 30px;">{{agent.status|title}}</button>
+                                                    </div>
+                                                    <div class="text">
+                                                        <p>{{agent.bio|capitalize|truncate(53, true)}}</p>
+                                                    </div>
+                                                    <ul class="info clearfix">
+                                                        <li><i class="fab fa fa-envelope"></i><a
+                                                                href="#">{{agent.user.email|truncate(5)}}</a></li> &nbsp
+                                                        <li><i class="fab fa fa-phone"></i><a href="#">
+                                                            {{agent.phone_number|truncate(5)}}</a></li>
+                                                    </ul>
+                                                    <div class="btn-box">
+                                                        <a href="/agents/detail/{{agent.slug}}/" class="theme-btn btn-two">View
+                                                            Profile</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="col-lg-6 col-md-6 col-sm-12 agents-block">
+                                        <div class="agents-block-two">
+                                            <div class="inner-box">
+                                                <figure class="image-box"><img src="{{static('assets/images/resource/agency-4.png')}}" alt=""></figure>
+                                                <div class="content-box">
+                                                    <div class="title-inner">
+                                                        <h4><a href="#">Property Company</a></h4>
+                                                        <span class="designation">Modern House Real Estate Agent</span>
+                                                    </div>
+                                                    <div class="text">
+                                                        <p>No Listing Found...</p>
+                                                    </div>
+                                                    <ul class="info clearfix">
+                                                        <li><i class="fab fa fa-envelope"></i><a href="#">info@pro...</a></li>
+                                                        <li><i class="fab fa fa-phone"></i><a href="#">...</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                        
+                    <div class="pagination-wrapper">
+                        <ul class="pagination clearfix">
+                            {% if is_paginated %}
+                                {% set number_of_pages = paginator.page_range|count %}
+                                {% set starter_counter = 1 %}
+                                {% set current_counter = 0 %}
+                                {% set controller = 6 %}
+                                {% if number_of_pages >= 3 %}
+                                    {% set number_range = 3 %}
+                                {% else %}
+                                    {% set number_range = number_of_pages + 1 %}
+                                {% endif %}
+
+                                {% if current_counter != controller %}
+                                    {% for k in range(starter_counter, number_range)  %}
+                                        {% if k <= number_of_pages %}
+                                            {% if page_obj.number == k %}
+                                                <li><a href="?page={{k}}" class="current">{{k}}</a></li>
+                                                {% if not loop.first %}
+                                                    {% set starter_Counter = starter_Counter + 1 %}
+                                                    {% set number_range = number_range + 1 %}
+                                                {% endif %}
+                                            {% else %}
+                                                <li><a href="?page={{k}}">{{k}}</a></li>
+                                            {% endif %}
+                                            {% set current_counter = current_counter + 1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% elif starter_Counter == controller and number_range -  1 > number_of_pages %}
+                                    {% set controller = controller + 1 %}
+                                {% endif %} 
+                                {% if page_obj.has_next %}
+                                    <li><a href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-right"></i></a></li>
+                                {% else %}
+                                    <li><a href="#"><i class="fas fa-angle-right disbled"></i></a></li>
+                                {% endif %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- agents-page-section end -->
+{% endblock content %}

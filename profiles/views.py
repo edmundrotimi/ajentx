@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
+from blog.models import BlogComment
 
 from profiles.models import Profile
 from .forms import ProfileForm
@@ -39,12 +40,10 @@ class CreateProfile(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         return reverse_lazy('profile_update', args=(profile[0],))
 
     def dispatch(self, request, *args, **kwargs):
-        super().dispatch(request, *args, **kwargs)
         if self.request.user.is_authenticated:
             if Profile.objects.filter(user=self.request.user).exists():
                 return HttpResponsePermanentRedirect(self.get_success_url())
-        else:
-            return super().dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ProfileDetail(SuccessMessageMixin, LoginRequiredMixin, DetailView):
@@ -56,19 +55,15 @@ class ProfileDetail(SuccessMessageMixin, LoginRequiredMixin, DetailView):
     success_url = '/account/profile/%(slug)'
 
     def get_queryset(self):
-        return Profile.objects.filter(user=self.request.user)
+        return Profile.objects.filter(user=self.request.user, slug=self.kwargs.get('slug'))
 
     def dispatch(self, request, *args, **kwargs):
-        super().dispatch(request, *args, **kwargs)
         if self.request.user.is_authenticated:
             if not Profile.objects.filter(user=self.request.user).exists():
                 return HttpResponseRedirect('/account/profile/create/')
             elif Profile.objects.filter(user=self.request.user, publish=False):
                 return HttpResponsePermanentRedirect('/accounts/suspension/')
-            else:
-                return super().dispatch(request, *args, **kwargs)
-        else:
-            return HttpResponsePermanentRedirect('/accounts/login/')
+        return super().dispatch(request, *args, **kwargs)
 
 
 class UpdateProfile(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
@@ -77,6 +72,9 @@ class UpdateProfile(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     success_url = '/account/profile/%(slug)'
     template_name = 'account/profile-update.html'
     success_message = 'Pofile Updated Successfully'
+
+    def get_queryset(self):
+        return Profile.objects.filter(user=self.request.user, slug=self.kwargs.get('slug'))
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -100,16 +98,12 @@ class UpdateProfile(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         return reverse_lazy('profile_update', args=(profile[0],))
 
     def dispatch(self, request, *args, **kwargs):
-        super().dispatch(request, *args, **kwargs)
         if self.request.user.is_authenticated:
             if not Profile.objects.filter(user=self.request.user).exists():
                 return HttpResponseRedirect('/account/profile/create/')
             elif Profile.objects.filter(Q(user=self.request.user) & Q(publish=False)):
                 return HttpResponsePermanentRedirect('/accounts/suspension/')
-            else:
-                return super().dispatch(request, *args, **kwargs)
-        else:
-            return HttpResponsePermanentRedirect('/accounts/login/')
+        return super().dispatch(request, *args, **kwargs)
 
 
 class DeleteProfile(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -118,16 +112,17 @@ class DeleteProfile(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     template_name = 'account/profile-delete.html'
     success_message = 'Pofile Updated Successfully'
 
+    def get_queryset(self):
+        return Profile.objects.filter(user=self.request.user, slug=self.kwargs.get('slug'))
+
     def form_valid(self, form):
         super().form_valid(form)
         return HttpResponseRedirect(self.get_success_url())
 
     def dispatch(self, request, *args, **kwargs):
-        super().dispatch(request, *args, **kwargs)
         if self.request.user.is_authenticated:
             if not Profile.objects.filter(user=self.request.user).exists():
                 return HttpResponseRedirect('/account/profile/create/')
             elif Profile.objects.filter(user=self.request.user, publish=False):
                 return HttpResponsePermanentRedirect('/accounts/suspension/')
-        else:
-            return super().dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)

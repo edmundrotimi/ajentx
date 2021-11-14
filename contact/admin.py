@@ -1,6 +1,6 @@
 from django.contrib import admin, messages
 from reversion.admin import VersionAdmin
-from .models import Contact
+from .models import UserContact
 
 
 class AdminContact(VersionAdmin, admin.ModelAdmin):
@@ -13,8 +13,9 @@ class AdminContact(VersionAdmin, admin.ModelAdmin):
     save_as = False
     save_as_continue = False
     save_on_top = True
-    search_fields = ['fullname', 'email', 'phone_number', 'message', 'date_created']
+    search_fields = ['fullname', 'email',
+                     'phone_number', 'message', 'date_created']
     fields = ['fullname', 'email', 'phone_number', 'message', 'date_created']
 
 
-admin.site.register(Contact, AdminContact)
+admin.site.register(UserContact, AdminContact)

@@ -14,4 +14,5 @@ django-reversion
 django-cleanup
 python-decouple
 jinja2-django-tags
-email-validator
+django-logentry-admin
+django-multiselectfield

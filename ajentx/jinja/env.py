@@ -2,7 +2,7 @@ from crispy_forms.utils import render_crispy_form
 from jinja2 import Environment
 from django.urls import reverse
 from django.contrib.staticfiles.storage import staticfiles_storage
-from .filters import datetimeformate, dateformate, timeformate, crispy, intcomma
+from .filters import datetimeformate, dateformate, timeformate, crispy, intcomma, unslugify
 from django.contrib import messages
 
 
@@ -22,6 +22,7 @@ def JinjaEnvironment(**options):
         'timeformate':timeformate,
         'crispy': crispy,
         'intcomma': intcomma,
+        'unslugify':unslugify,
     })
 
     return env

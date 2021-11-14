@@ -36,6 +36,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
 
+# Admin url path
+ADMIN_PATH = config('ADMIN_PATH')
 
 # Application definition
 
@@ -48,10 +50,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #site admin docs
     'django.contrib.admindocs',
+    'django.contrib.humanize',
 
     # third party app
     'admin_honeypot',
-    'crispy_forms',
     'reversion',
     'ckeditor',
     'ckeditor_uploader',
@@ -59,13 +61,18 @@ INSTALLED_APPS = [
     #apps
     'accounts.apps.AccountsConfig',
     'agents.apps.AgentsConfig',
+    'listings.apps.ListingsConfig',
     'blog.apps.BlogConfig',
     'profiles.apps.ProfilesConfig',
+    'pages.apps.PagesConfig',
     'contact.apps.ContactConfig',
 
      # third party apps by order
     'django_cleanup.apps.CleanupConfig',
     'axes',
+    'multiselectfield',
+    'crispy_forms',
+    'logentry_admin',
 ]
 
 MIDDLEWARE = [
@@ -82,6 +89,7 @@ MIDDLEWARE = [
     'ajentx.middleware.remoteAddr.RemoteAddrMiddleware',
     # current user
     'ajentx.middleware.currentUser.RequestMiddleware',
+
 
     # AxesMiddleware should be the last middleware in the MIDDLEWARE list.
     # It only formats user lockout messages and renders Axes lockout responses
@@ -116,12 +124,12 @@ TEMPLATES = [
                 'jinja2.ext.loopcontrols',
                 'jinja2.ext.autoescape',
                 'jdj_tags.extensions.DjangoCompat',
-            ]
+            ],
         },
     },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -204,6 +212,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+DATE_FORMAT = '%m/%d/%Y'
+
 # Email Settings
 if DEBUG:
     # email console
@@ -225,7 +235,7 @@ else:
     SILENCED_SYSTEM_CHECKS = ['axes.W003']
     AXES_FAILURE_LIMIT = 5
     AXES_COOLOFF_TIME = 3
-    AXES_LOCKOUT_TEMPLATE = 'jinja2/account/lockedout.html'
+    AXES_LOCKOUT_TEMPLATE = 'account/lockedout.html'
     AXES_LOCKOUT_URL = '/account/user/lockedout/'
     AXES_USERNAME_FORM_FIELD = 'login'
 

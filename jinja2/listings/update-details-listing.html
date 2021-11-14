@@ -1,0 +1,324 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+    <!--Page Title-->
+    <section class="page-title-two bg-color-1 centred">
+        <div class="pattern-layer">
+            <div class="pattern-1" style="background-image: url(assets/images/shape/shape-9.png);"></div>
+            <div class="pattern-2" style="background-image: url(assets/images/shape/shape-10.png);"></div>
+        </div>
+        <div class="auto-container">
+            <div class="content-box clearfix">
+                <h1>Update Listing</h1>
+                <ul class="bread-crumb clearfix">
+                    <li><a href="/">Home</a></li>
+                    <li>Update Property Listing</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!--End Page Title-->
+
+
+
+<!-- myprofile-section -->
+<section class="myprofile-section sec-pad">
+    <div class="auto-container">
+        <div class="title">
+            <h3>Listing Details </h3>
+        </div>
+        <div class="tabs-box">
+            <ul class="tab-btns tab-buttons clearfix">
+                <li class="tab-btn active-btn" data-tab="#tab-1"><span>1</span>General Information</li>
+                <li class="tab-btn" data-tab="#tab-2"><span>2</span>More Details</li>
+                <li class="tab-btn" data-tab="#tab-3"><span>3</span>Location/Amenities</li>
+                <li class="tab-btn" data-tab="#tab-4"><span>4</span>Featured Images</li>
+                <li class="tab-btn" data-tab="#tab-5"><span>4</span>Media</li>
+            </ul>
+            <form>
+                <div class="tabs-content">
+                    {% if get_messages(request) %}
+                        <section class="subscribe-section bg-color-3">
+                            <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-2.png);"></div>
+                            <div class="auto-container">
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 text-column">
+                                        <div class="text">
+                                            <span>Message</span>
+                                            {% for alert in get_messages(request) %}
+                                                {% if loop.last %}
+                                                    <h2> {{alert.message}} </h2>
+                                                {% endif %} 
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>   
+                    {% endif %}                 
+                    <div class="tab active-tab" id="tab-1">
+                        <div class="general-information">
+                            <h4><i class="icon-42"></i>General Information:</h4>
+                            <div class="inner-box default-form">
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Property Name</label>
+                                            <input disabled required type='text' class="select-box" name="property_name" value='{{listing.property_name|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Property Status</label>
+                                            <input disabled required type='text' class="select-box" name="property_status" value='{{listing.property_status|title}}'>
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Property Category</label>
+                                            <input disabled required type='text' class="select-box" name="property_category" value='{{listing.property_category|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Property Size</label>
+                                            <input disabled required type='text' class="select-box" name="property_size" value='{{listing.property_size|title}}'>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Property Description</label>
+                                            <textarea disabled required name='property_description'>{{listing.property_description}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="tab-btns tab-buttons clearfix">
+                                    <li class="tab-btn active-btn" data-tab="#tab-2"><span>&gt;</span>Next</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab" id="tab-2">
+                        <div class="gallery-box">
+                            <h4><i class="icon-16"></i>More Details:</h4>
+                            <div class="inner-box default-form">
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Number of Rooms</label>
+                                            <input disabled required type='text' class="select-box" name="rooms" value='{{listing.rooms|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Number of Bedrooms</label>
+                                            <input disabled required type='text' class="select-box" name="bedrooms" value='{{listing.bedrooms|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Number of Bathroom</label>
+                                            <input disabled required type='text' class="select-box" name="bathrooms" value='{{listing.bathrooms|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Number of Garage</label>
+                                            <input disabled required type='text' class="select-box" name="garage" value='{{listing.garage|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Garage Size</label>
+                                            <input disabled required type='text' class="select-box" name="garage_size" value='{{listing.garage_size|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Year Built</label>
+                                            <input disabled required type='text' class="select-box" name="year_built" value='{{listing.year_built|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Property Price</label>
+                                            <input disabled required type='text' class="select-box" name="property_price" value='{{listing.property_price|title}}'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="tab-btns tab-buttons clearfix">
+                            <li class="tab-btn" data-tab="#tab-1" style="color: #2dbe6c;"><span>&lt;</span>Previous</li>
+                            <li class="tab-btn" data-tab="#tab-3" style="color: #2dbe6c;"><span>&gt;</span>Next</li>
+                        </ul>
+                    </div>
+                    <div class="tab" id="tab-3">
+                        <div class="property-details">
+                            <h4><i class="icon-19"></i>Location/Amenities:</h4>
+                            <div class="inner-box default-form">
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <label>Amenities</label>  
+                                        <select disabled class="select" multiple name='amenities'>
+                                            <option value="Air Conditioning">Air Conditioning</option>
+                                            <option value="Cleaning Service">Cleaning Service</option>
+                                            <option value="Dishwasher">Dishwasher</option>
+                                            <option value="Hardwood Flows">Hardwood Flows</option>
+                                            <option value="Swimming Pool">Swimming Pool</option>
+                                            <option value="Outdoor Shower">Outdoor Shower</option>
+                                            <option value="Microwave">Microwave</option>
+                                            <option value="Pet Friendly">Pet Friendly</option>
+                                            <option value="Basketball Court">Basketball Court</option>
+                                            <option value="Refrigerator">Refrigerator</option>
+                                            <option value="Gym">Gym</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Address</label>
+                                            <input disabled required type='text' class="select-box" name="address" value='{{listing.address|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Country</label>
+                                            <input disabled required type='text' class="select-box" name="country" value='{{listing.country|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Sate</label>
+                                            <input disabled required type='text' class="select-box" name="state" value='{{listing.state|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>City</label>
+                                            <input disabled required type='text' class="select-box" name="city" value='{{listing.city|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Zip/Postal Code</label>
+                                            <input disabled required type='text' class="select-box" name="postal_code" value='{{listing.postal_code|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Neighborhood</label>
+                                            <input disabled required type='text' class="select-box" name="neighborhood" value='{{listing.neighborhood|title}}'>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Nearby Locations (seperate list with ',')</label>
+                                            <textarea disabled required placeholder="about you" name='bio'>{{listing.nearby}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="tab-btns tab-buttons clearfix">
+                                <li class="tab-btn" data-tab="#tab-2" style="color: #2dbe6c;"><span>&lt;</span>Previous</li>
+                                <li class="tab-btn" data-tab="#tab-4" style="color: #2dbe6c;"><span>&lt;</span>Next</li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="tab" id="tab-4">
+                        <div class="property-details">
+                            <h4><i class="icon-19"></i>Featured Images:</h4>
+                            <h4 style="font-size:16px; color:#2dbe6c;">
+                                Featured images are images that will represent this listing</h4>
+                            <div class="inner-box default-form">
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Featured Image 1</label>
+                                            <input type='file' name="feature_image_1" class="theme-btn btn-one" value="{{listing.feature_image_1}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Featured Image 2</label>
+                                            <input type='file' name="feature_image_2" class="theme-btn btn-one" value="{{listing.feature_image_2}}">                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Featured Image 3</label>
+                                            <input type='file' name="feature_image_3" class="theme-btn btn-one" value="{{listing.feature_image_3}}">   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="tab-btns tab-buttons clearfix">
+                                <li class="tab-btn" data-tab="#tab-3" style="color: #2dbe6c;"><span>&lt;</span>Previous</li>
+                                <li class="tab-btn" data-tab="#tab-5" style="color: #2dbe6c;"><span>&lt;</span>Next</li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="tab" id="tab-5">
+                        <div class="property-details">
+                            <h4><i class="icon-19"></i>Media (Other Images):</h4>
+                            <div class="inner-box default-form">
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Gallery Image 1</label>
+                                            <input type='file' name="gallery_image_1" class="theme-btn btn-one" value=""{{listing.gallery_image_1}}>     
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label> Description to Gallery Image 1</label>
+                                            <textarea disabled required placeholder="about you" name='bio'>{{listing.gallery_image_1_details}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Gallery Image 2</label>
+                                            <input disabled type='file' name="gallery_image_2" class="theme-btn btn-one" value="{{listing.gallery_image_2}}"> 
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label> Description to Gallery Image 2</label>
+                                            <textarea disabled required placeholder="about you" name='bio'>{{listing.gallery_image_2_details}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label>Gallery Image 3</label>
+                                            <input disabled type='file' name="gallery_image_3" class="theme-btn btn-one" value="{{listing.gallery_image_3}}">   
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                        <div class="field-input">
+                                            <label> Description to Gallery Image 3</label>
+                                            <textarea disabled required placeholder="about you" name='bio'>{{listing.gallery_image_3_details}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="tab-btns tab-buttons clearfix">
+                                <li class="tab-btn" data-tab="#tab-4" style="color: #2dbe6c;"><span>&lt;</span>Previous</li>
+                            </ul>
+
+                            <a href="/listings/update/{{listing.slug}}/" class="theme-btn btn-one">Update Listing</a> &nbsp; <br>
+                            <a href="/listings/{{listing.slug}}/delete/" class="theme-btn btn-one" style="background:#ef5350;border:#ef5350; margin-top:5px;">Delete Listing</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- myprofile-section end -->
+{% endblock content %}
+
+{# override block #}
+{% block subscribe %} {% endblock subscribe %}

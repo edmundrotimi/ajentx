@@ -2,7 +2,7 @@ from jinja2 import Markup
 from crispy_forms.templatetags.crispy_forms_filters import as_crispy_form
 
 def dateformate(value):
-    return f'{value.strftime("%d")} {value.strftime("%d")}\' {value.strftime("%-y")}'
+    return f'{value.strftime("%d")} {value.strftime("%B")}, {value.strftime("%-y")}'
 
 def timeformate(value):
     return f'{value.strftime("%H")}:{value.strftime("%M")} {value.strftime("%p")}'
@@ -18,3 +18,9 @@ def crispy(form):
 def intcomma(value):
     value_int = int(value)
     return f'{value_int:,}'
+
+def unslugify(value):
+    try:
+        return value.replace('_', ' ')
+    except:
+        return value

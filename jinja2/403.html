@@ -5,15 +5,15 @@
     <!--Page Title-->
     <section class="page-title-two bg-color-1 centred">
         <div class="pattern-layer">
-            <div class="pattern-1" style="background-image: url(assets/images/shape/shape-9.png);"></div>
-            <div class="pattern-2" style="background-image: url(assets/images/shape/shape-10.png);"></div>
+            <div class="pattern-1" style="background-image: url({{static('assets/images/shape/shape-9.png')}});"></div>
+            <div class="pattern-2" style="background-image: url({{ static('assets/images/shape/shape-10.png')}});"></div>
         </div>
         <div class="auto-container">
             <div class="content-box clearfix">
-                <h1>Account Suspended</h1>
+                <h1>403</h1>
                 <ul class="bread-crumb clearfix">
-                    <li><a href="index.html">Home</a></li>
-                    <li>404</li>
+                    <li><a href="{{url('home')}}">Home</a></li>
+                    <li>403</li>
                 </ul>
             </div>
         </div>
@@ -25,9 +25,9 @@
     <section class="error-section centred">
         <div class="auto-container">
             <div class="inner-box">
-                <h1>404</h1>
-                <h2>page is not found. <br />the page is doesn’t exist or deleted</h2>
-                <a href="index.html" class="theme-btn btn-one">Go To Home</a>
+                <h1>403</h1>
+                <h2>Oops! <br /> Page Permission Denied...</h2>
+                <a href="{{url(home)}}" class="theme-btn btn-one">Go To Home</a>
             </div>
         </div>
     </section>

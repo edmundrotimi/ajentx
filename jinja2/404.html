@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!--Page Title-->
+    <section class="page-title-two bg-color-1 centred">
+        <div class="pattern-layer">
+            <div class="pattern-1" style="background-image: url({{static('assets/images/shape/shape-9.png')}});"></div>
+            <div class="pattern-2" style="background-image: url({{ static('assets/images/shape/shape-10.png')}});"></div>
+        </div>
+        <div class="auto-container">
+            <div class="content-box clearfix">
+                <h1>404</h1>
+                <ul class="bread-crumb clearfix">
+                    <li><a href="{{url('home')}}">Home</a></li>
+                    <li>404</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!--End Page Title-->
+
+
+    <!-- error-section -->
+    <section class="error-section centred">
+        <div class="auto-container">
+            <div class="inner-box">
+                <h1>404</h1>
+                <h2>page is not found. <br />the page is doesn’t exist or deleted</h2>
+                <a href="{{url(home)}}" class="theme-btn btn-one">Go To Home</a>
+            </div>
+        </div>
+    </section>
+    <!-- error-section end -->
+
+<!-- myprofile-section end -->
+{% endblock content %}
+
+{# override block #}
+{% block subscribe %} {% endblock subscribe %}

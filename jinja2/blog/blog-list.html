@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!--Page Title-->
+    <section class="page-title centred" style="background-image: url({{ static ('assets/images/background/page-title-5.jpg') }});">
+        <div class="auto-container">
+            <div class="content-box clearfix">
+                <h1>Blog Post</h1>
+                <ul class="bread-crumb clearfix">
+                    <li><a href="/">Home</a></li>
+                    <li>Blog Post</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!--End Page Title-->
+
+
+        <!-- sidebar-page-container -->
+        <section class="sidebar-page-container blog-grid sec-pad-2">
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                        <div class="blog-grid-content">
+                            <div class="row clearfix">
+                                {% for post  in posts %}
+                                    <div class="col-lg-6 col-md-6 col-sm-12 news-block">
+                                        <div class="news-block-one wow fadeInUp animated" data-wow-delay="00ms"
+                                            data-wow-duration="1500ms">
+                                            <div class="inner-box">
+                                                <div class="image-box">
+                                                    <figure class="image"><a href="#"><img
+                                                                src="{{post.feature_image.url}}" alt=""></a></figure>
+                                                    <span class="category">Featured</span>
+                                                </div>
+                                                <div class="lower-content">
+                                                    <h4><a href="#">{{post.title|title}}</a></h4>
+                                                    <ul class="post-info clearfix">
+                                                        <li class="author-box">
+                                                            <figure class="author-thumb"><img
+                                                                    src="{{post.author_image}}" alt=""></figure>
+                                                            <h5><a href="#">{{post.user.get_full_name()}}</a></h5>
+                                                        </li>
+                                                        <li>{{post.last_updated|dateformate}}</li>
+                                                    </ul>
+                                                    <div class="text">
+                                                        <p>{{post.detail[:57]}}...</p>
+                                                    </div>
+                                                    <div class="btn-box">
+                                                        <a href="/blog/post/{{post.slug}}/" class="theme-btn btn-two">See
+                                                            Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="col-lg-6 col-md-6 col-sm-12 news-block">
+                                        <div class="news-block-one wow fadeInUp animated" data-wow-delay="00ms"
+                                            data-wow-duration="1500ms">
+                                            <div class="inner-box">
+                                                <div class="image-box">
+                                                    <figure class="image"><a href="#"><img
+                                                                src="#" alt=""></a></figure>
+                                                    <span class="category">Featured</span>
+                                                </div>
+                                                <div class="lower-content">
+                                                    <h4><a href="#">No Post Found</a></h4>
+                                                    <ul class="post-info clearfix">
+                                                        <li class="author-box">
+                                                            <figure class="author-thumb"><img
+                                                                    src="#" alt=""></figure>
+                                                            <h5><a href="#">No post found</a></h5>
+                                                        </li>
+                                                        <li>{% now 'd/m/Y' %}</li>
+                                                    </ul>
+                                                    <div class="text">
+                                                        <p>No post listing found...</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% if is_paginated %}
+                                <div class="pagination-wrapper">
+                                    <ul class="pagination clearfix">
+                                        {% set number_of_pages = paginator.page_range|count %}
+                                        {% set starter_counter = 1 %}
+                                        {% set current_counter = 0 %}
+                                        {% set controller = 4 %}
+                                        {% if number_of_pages >= 3 %}
+                                            {% set number_range = 3 %}
+                                        {% else %}
+                                            {% set number_range = number_of_pages + 1 %}
+                                        {% endif %}
+
+                                        {% if current_counter != controller %}
+                                            {% for k in range(starter_counter, number_range)  %}
+                                                {% if k <= number_of_pages %}
+                                                    {% if page_obj.number == k %}
+                                                        <li><a href="?page={{k}}" class="current">{{k}}</a></li>
+                                                        {% if not loop.first %}
+                                                            {% set starter_Counter = starter_Counter + 1 %}
+                                                            {% set number_range = number_range + 1 %}
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <li><a href="?page={{k}}">{{k}}</a></li>
+                                                    {% endif %}
+                                                    {% set current_counter = current_counter + 1 %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% elif starter_Counter == controller and number_range -  1 > number_of_pages %}
+                                            {% set controller = controller + 1 %}
+                                        {% endif %} 
+                                        {% if page_obj.has_next %}
+                                            <li><a href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-right"></i></a></li>
+                                        {% else %}
+                                            <li><a href="#"><i class="fas fa-angle-right disbled"></i></a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                        <div class="blog-sidebar">
+                            <div class="sidebar-widget search-widget">
+                                <div class="widget-title">
+                                    <h4>Search</h4>
+                                </div>
+                                <div class="search-inner">
+                                    <form method="get">
+                                        <div class="form-group">
+                                            <input type="search" name="search_field" placeholder="Search" required="">
+                                            <button type="submit"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                           
+                           {% if posts %}
+                                <div class="sidebar-widget category-widget">
+                                    <div class="widget-title">
+                                        <h4>Category</h4>
+                                    </div>
+                                    <div class="widget-content">
+                                        <ul class="category-list clearfix">
+                                            <li><a href="#">Home improvement<span>({{counter_cat_hom}})</span></a></li>
+                                            <li><a href="#">Architecture<span>({{counter_cat_arch}})</span></a></li>
+                                            <li><a href="#">Tips and advice<span>({{counter_cat_tip}})</span></a></li>
+                                            <li><a href="#">Interior<span>({{counter_cat_int}})</span></a></li>
+                                            <li><a href="#">Real Estate<span>({{counter_cat_est}})</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="sidebar-widget post-widget">
+                                    <div class="widget-title">
+                                        <h4>Recent Posts</h4>
+                                    </div>
+                                    <div class="post-inner">
+                                        {% set post_random = posts|random %}
+                                        {% if posts|length < 2 %}
+                                            {% set post_random = posts %}
+                                        {% endif %}
+                                        {% for post in post_random[:3] %}
+                                            <div class="post">
+                                                <figure class="post-thumb"><a href="/blog/post/{{post.slug}}/"><img
+                                                            src="{{post.feature_image.url}}" alt=""></a></figure>
+                                                <h5><a href="/blog/post/{{post.slug}}/">{{post.subject|title}}</a>
+                                                </h5>
+                                                <span class="post-date">{{post.last_updated|dateformate}}</span>
+                                            </div>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- sidebar-page-container -->
+
+{% endblock %}
